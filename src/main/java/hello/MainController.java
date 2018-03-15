@@ -26,8 +26,15 @@ public class MainController {
     }*/
     
     @RequestMapping("/logIn")
-    public String log(Model model) {
+    public String log(Model model) 
+    {
         return "logIn";
+    }
+
+    @RequestMapping("/log")
+    public String logInAsUser(Model model) 
+    {
+        return "redirect/:index";
     }
     
     @RequestMapping("/send")

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Login</title>
@@ -21,7 +20,7 @@
 <body>
 <h1>LOG IN</h1>
 <div id="loginform">
-    <form action="login" method="post">
+    <form th:action="@{/logInAsUser}" method="POST">
         <p><label for="login">Username:</label>
         <input type="text" id="login" name="login"/></p>
         <p><label for="password">Password:</label>
