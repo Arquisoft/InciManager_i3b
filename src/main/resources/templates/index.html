@@ -5,9 +5,12 @@
 <body>
 <h1>User Page</h1>
 <form th:action="@{/send}" th:object="${message}" method="POST">
-    <label for="message">Type a message: </label>
+    <p><label for="message">Submit new incident:</label></p>
     <input type="text" id="message" th:field="*{message}" />
     <input type="submit" value="Notify Incident" />
 </form>
+
+<p><label for="message">Review my incidents:</label></p>
+<input type="submit" value="Review Incident" />
 </body>
 </html>

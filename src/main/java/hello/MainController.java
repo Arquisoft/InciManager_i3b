@@ -16,8 +16,18 @@ public class MainController {
 
     @RequestMapping("/")
     public String landing(Model model) {
+        return "redirect:/logIn";
+    }
+    
+    /*@RequestMapping("/")
+    public String landing(Model model) {
         model.addAttribute("message", new Message());
         return "index";
+    }*/
+    
+    @RequestMapping("/logIn")
+    public String log(Model model) {
+        return "logIn";
     }
     
     @RequestMapping("/send")
