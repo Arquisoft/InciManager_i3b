@@ -59,10 +59,11 @@ public class MainController {
         return "redirect:/";
     }
     
-    @RequestMapping("/listIncident")
-    public String queryInfo(Model model, @ModelAttribute Message message) {
-        kafkaProducer.send("exampleTopic", message.getMessage());
-        return "redirect:/";
+    @RequestMapping("/list")
+    public String queryInfo(Model model, @ModelAttribute UserInfo u) {
+        //list = lista(u.getName(), u.kind());
+    	//model.addAttribute("incidentsList", list);
+        return "list";
     }
 
 }
