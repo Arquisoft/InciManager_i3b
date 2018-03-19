@@ -8,7 +8,7 @@ public class UserInfo {
 	// Log
 	private static final Logger LOG = LoggerFactory.getLogger(UserInfo.class);
 
-    private String name;
+    public String name;
     private int kind;
 
     
