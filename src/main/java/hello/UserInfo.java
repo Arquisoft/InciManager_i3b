@@ -9,19 +9,19 @@ public class UserInfo {
 	private static final Logger LOG = LoggerFactory.getLogger(UserInfo.class);
 
     private final String name;
-    private final Integer age;
+    private final int kind;
 
-    public UserInfo(String name, Integer age) {
-    	LOG.info("Creating user " + name + ". age: " + age);
+    public UserInfo(String name, Integer kind) {
+    	LOG.info("Creating user " + name + ". kind: " + kind);
         this.name = name;
-        this.age = age;
+        this.kind = kind;
     }
 
     public String getName() {
         return name;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getKind() {
+        return kind;
     }
 }
