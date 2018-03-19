@@ -4,9 +4,11 @@
 </head>
 <body>
 <h1>User Page</h1>
-<form th:action="@{/send}" th:object="${message}" method="POST">
-    <p><label for="message">Submit new incident:</label></p>
-    <input type="text" id="message" th:field="*{message}" />
+<form th:action="@{/send}" th:object="${message}" th:object1="${title}" th:object2="${location}" method="POST">
+    <p><label>Submit new incident:</label></p>
+    <p>Title: <input type="text" id="title" th:field="*{title}" /></p>
+    <p>Description: <input type="text" id="message" th:field="*{message}" /></p>
+    <p>Location: <input type="text" id="location" th:field="*{location}" /></p>
     <input type="submit" value="Notify Incident" />
 </form>
 
