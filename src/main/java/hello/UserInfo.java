@@ -8,9 +8,21 @@ public class UserInfo {
 	// Log
 	private static final Logger LOG = LoggerFactory.getLogger(UserInfo.class);
 
-    private final String name;
-    private final int kind;
+    private String name;
+    private int kind;
 
+    
+    
+    public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setKind(int kind) {
+		this.kind = kind;
+	}
+
+	public UserInfo() {}
+    
     public UserInfo(String name, Integer kind) {
     	LOG.info("Creating user " + name + ". kind: " + kind);
         this.name = name;
