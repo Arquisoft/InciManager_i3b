@@ -46,7 +46,8 @@ public class MainController {
     	{
     		return "logIn";	
     	}else {
-    	model.addAttribute("info", u);
+    	model.addAttribute("name", u.getName());
+    	System.out.println(u.getName());
         return "redirect:/index";}
     }
     
