@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hello.producers.KafkaProducer;
 
@@ -40,19 +41,26 @@ public class MainController {
     }
 
     @RequestMapping(value = "/logIn", method = RequestMethod.POST)
-    public String log(Model model, @ModelAttribute UserInfo u) 
+    public String log(Model model, @ModelAttribute UserInfo u, RedirectAttributes redirect) 
     {
     	if(u.getKind()<0 || u.getKind()>3)
     	{
     		return "logIn";	
     	}else {
-    	model.addAttribute("name", u.getName());
-    	System.out.println(u.getName());
-        return "redirect:/index";}
+    		redirect.addFlashAttribute("user",u);
+    		redirect.addFlashAttribute("name", u.getName());
+    		redirect.addFlashAttribute("kind", u.getKind());
+        return "redirect:index";}
     }
     
     @RequestMapping("/send")
     public String send(Model model, @ModelAttribute Message message) {
+        kafkaProducer.send("exampleTopic", message.getMessage());
+        return "redirect:/";
+    }
+    
+    @RequestMapping("/listIncident")
+    public String queryInfo(Model model, @ModelAttribute Message message) {
         kafkaProducer.send("exampleTopic", message.getMessage());
         return "redirect:/";
     }

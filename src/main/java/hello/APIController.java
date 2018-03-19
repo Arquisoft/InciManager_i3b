@@ -9,7 +9,7 @@ public class APIController {
 
     @RequestMapping("/user")
     public UserInfo user() {
-        return new UserInfo("pepe",0);
+        return new UserInfo("pepe", 0);
     }
 
 }
