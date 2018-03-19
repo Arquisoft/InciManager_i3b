@@ -25,16 +25,23 @@ public class MainController {
         return "index";
     }*/
     
+    @RequestMapping("/index")
+    public String index(Model model) {
+        model.addAttribute("message", new Message());
+        return "index";
+    }
+    
     @RequestMapping("/logIn")
     public String log(Model model) 
     {
         return "logIn";
     }
 
-    @RequestMapping("/log")
+    @RequestMapping("/logInAsUser")
     public String logInAsUser(Model model) 
     {
-        return "redirect/:index";
+    	//model.addAttribute("info", new UserInfo("login", "kind"));
+        return "redirect:/index";
     }
     
     @RequestMapping("/send")

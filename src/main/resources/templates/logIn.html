@@ -20,7 +20,7 @@
 <body>
 <h1>LOG IN</h1>
 <div id="loginform">
-    <form th:action="@{/logInAsUser}" method="POST">
+    <form th:action="@{/logInAsUser}" th:object="${login}" th:object2="${kind}" method="POST">
         <p><label for="login">Username:</label>
         <input type="text" id="login" name="login"/></p>
         <p><label for="password">Password:</label>
