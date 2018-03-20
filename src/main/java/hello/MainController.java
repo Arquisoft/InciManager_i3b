@@ -32,7 +32,9 @@ public class MainController {
     }
     
     @RequestMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
+    	model.addAttribute("user",(String) session.getAttribute("user"));
+    	model.addAttribute("kind", session.getAttribute("kind"));
         model.addAttribute("message", new Message());
         return "index";
     }
@@ -52,10 +54,7 @@ public class MainController {
     	}else {
     		session.setAttribute("user", u.getName());
     		session.setAttribute("kind", u.getKind());
-    		redirect.addFlashAttribute("user",u);
-    		redirect.addFlashAttribute("name", u.getName());
-    		redirect.addFlashAttribute("kind", u.getKind());
-        return "redirect:index";}
+    		return "redirect:index";}
     }
     
     @PostMapping("/send")
