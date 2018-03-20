@@ -20,15 +20,14 @@ public class IncidentsService {
 	private KafkaProducer kafkaProducer;
 	
 	public void addIncident(String topic, Message incident) {
-		//incidentsRepository.save(incident);
+		incidentsRepository.save(incident);
 		Gson gson = new Gson();
 		String kafkaMessage = gson.toJson(incident);
-		//kafkaProducer.send(topic, kafkaMessage);
+		kafkaProducer.send(topic, kafkaMessage);
 	}
 	
 	public List<Message> getAgentIncidents(String agentName) {
-		//return incidentsRepository.getIncidentsByAgentName(agentName);
-		return null;
+		return incidentsRepository.getIncidentsByAgentName(agentName);
 	}
 
 }
