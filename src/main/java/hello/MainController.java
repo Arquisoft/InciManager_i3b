@@ -44,14 +44,15 @@ public class MainController {
     	{
     		return "logIn";	
     	}else {
-    		redirect.addFlashAttribute("user",u);
+    		model.addAttribute("user",u);
     		redirect.addFlashAttribute("name", u.getName());
     		redirect.addFlashAttribute("kind", u.getKind());
         return "redirect:index";}
     }
     
     @RequestMapping("/send")
-    public String send(Model model, @ModelAttribute Message message) {
+    public String send(Model model, @ModelAttribute Message message, @ModelAttribute UserInfo u) {
+    	System.out.println(u.getName());
         //incidentService.add("exampleTopic", message);
         return "redirect:/";
     }

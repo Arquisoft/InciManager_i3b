@@ -12,7 +12,9 @@
     <p><label>Submit new incident:</label></p>
     <p>Title: <input type="text" id="title" th:field="*{title}" /></p>
     <p>Description: <input type="text" id="message" th:field="*{message}" /></p>
-    <p>Location: <input type="text" id="location" th:field="*{location}" /></p>
+	<p>Aditional info: <input type="text" id="aditionalInfo" th:field="*{aditionalInfo}" /></p>
+	<p>Tags: <input type="text" id="tags" th:field="*{tags}" /></p>
+	<!--<p>Custom fields: <input type="text" id="customFields" th:field="*{customFields}" /></p>-->
     <input type="submit" value="Notify Incident" />
 </form>
 

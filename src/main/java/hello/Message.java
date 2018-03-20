@@ -1,5 +1,7 @@
 package hello;
 
+import java.util.Map;
+
 /**
  * Created by herminio on 27/2/17.
  */
@@ -10,7 +12,36 @@ public class Message {
     public String location;
     public int state;
     public String[] tags;
-    public int getState() {
+    public String name;
+	public String aditionalInfo;
+	public int kind;
+	public Map<String, String> customFields;
+	
+    public Map<String, String> getCustomFields() {
+		return customFields;
+	}
+
+	public void setCustomFields(Map<String, String> customFields) {
+		this.customFields = customFields;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getKind() {
+		return kind;
+	}
+
+	public void setKind(int kind) {
+		this.kind = kind;
+	}
+
+	public int getState() {
 		return state;
 	}
 
@@ -29,8 +60,6 @@ public class Message {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
-	public String aditionalInfo;
 
     public String getTitle() {
 		return title;
