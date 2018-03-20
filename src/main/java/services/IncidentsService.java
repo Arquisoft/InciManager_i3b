@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import hello.Message;
+import com.google.gson.Gson;
+
+import entities.Message;
+import hello.producers.KafkaProducer;
 import repositories.IncidentsRepository;
 
 @Service
@@ -13,10 +16,14 @@ public class IncidentsService {
 	
 	@Autowired
 	private IncidentsRepository incidentsRepository;
+	@Autowired
+	private KafkaProducer kafkaProducer;
 	
 	public void addIncident(String topic, Message incident) {
 		incidentsRepository.save(incident);
-		//TODO: Send to kafka
+		Gson gson = new Gson();
+		String kafkaMessage = gson.toJson(incident);
+		kafkaProducer.send(topic, kafkaMessage);
 	}
 	
 	public List<Message> getAgentIncidents(String agentName) {
