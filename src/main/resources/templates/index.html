@@ -4,13 +4,21 @@
 </head>
 <body>
 <h1>User Page</h1>
-<form th:action="@{/send}" th:object="${message}" method="POST">
-    <p><label for="message">Submit new incident:</label></p>
-    <input type="text" id="message" th:field="*{message}" />
+
+<form action="/send" th:object="${message}" method="POST">
+    <h2><label>Submit new incident:</label></h2>
+    <p>Name: <input type="text" id="name" th:attr="value=${name}" disabled="disabled"/></p>
+    <p>Title: <input type="text" id="title" th:field="*{title}" /></p>
+    <p>Description: <input type="text" id="message" th:field="*{message}" /></p>
+	<p>Aditional info: <input type="text" id="aditionalInfo" th:field="*{aditionalInfo}" /></p>
+	<p>Tags: <input type="text" id="tags" th:field="*{tags}" /></p>
+	<!--<p>Custom fields: <input type="text" id="customFields" th:field="*{customFields}" /></p>-->
     <input type="submit" value="Notify Incident" />
 </form>
 
-<p>Review my incidents:</p>
-<input type="submit" value="Review Incident" />
+<h2>Review my incidents:</h2>
+<form th:action="@{/list}" method="POST">
+<input type="submit" value="List"/>
+</form>
 </body>
 </html>

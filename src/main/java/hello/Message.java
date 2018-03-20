@@ -21,8 +21,6 @@ public class Message {
 	private int kind;
 	private Map<String, String> customFields;
 
-    public Message() {}
-
 	public String getMessage() {
 		return message;
 	}
