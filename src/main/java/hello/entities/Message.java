@@ -22,7 +22,7 @@ public class Message {
 	private int kind;
 	private Map<String, String> customFields;
 	private String customFieldsNames;
-	private String customFieldsValues;
+	private String customFieldsValues;	
 	
 	public String getCustomFieldsNames() {
 		return customFieldsNames;
