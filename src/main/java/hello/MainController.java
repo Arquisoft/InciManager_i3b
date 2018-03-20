@@ -76,7 +76,7 @@ public class MainController {
         }
         message.setCustomFields(m);
         incidentsService.addIncident("exampleTopic", message);
-        return "redirect:/";
+        return "redirect:index";
     }
     
     @RequestMapping("/list")
