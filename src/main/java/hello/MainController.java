@@ -52,7 +52,7 @@ public class MainController {
     
     @RequestMapping("/send")
     public String send(Model model, @ModelAttribute Message message, @ModelAttribute UserInfo u) {
-    	System.out.println(u.getName());
+    	//de alguna manera deveria de introducirle al mensaje los atributos name y kind de userInfo
         //incidentService.add("exampleTopic", message);
         return "redirect:/";
     }
