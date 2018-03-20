@@ -1,9 +1,9 @@
 package hello;
 
 
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hello.entities.Message;
-import hello.producers.KafkaProducer;
 import hello.services.IncidentsService;
 
 @Controller
@@ -43,12 +42,14 @@ public class MainController {
     }
 
     @RequestMapping(value = "/logIn", method = RequestMethod.POST)
-    public String log(Model model, @ModelAttribute UserInfo u, RedirectAttributes redirect) 
+    public String log(HttpSession session ,Model model, @ModelAttribute UserInfo u, RedirectAttributes redirect) 
     {
     	if(u.getKind()<0 || u.getKind()>3)
     	{
     		return "logIn";	
     	}else {
+    		session.setAttribute("user", u.getName());
+    		session.setAttribute("kind", u.getKind());
     		redirect.addFlashAttribute("user",u);
     		redirect.addFlashAttribute("name", u.getName());
     		redirect.addFlashAttribute("kind", u.getKind());
@@ -56,25 +57,27 @@ public class MainController {
     }
     
     @PostMapping("/send")
-    public String send(Model model, @Validated Message message) {
-    	//de alguna manera deveria de introducirle al mensaje los atributos name y kind de userInfo
+    public String send(HttpSession session, Model model, @Validated Message message) {
+    	message.setName((String) session.getAttribute("user"));
+        message.setKind((int) session.getAttribute("kind"));
         incidentsService.addIncident("exampleTopic", message);
-    	System.out.println();
         return "redirect:/";
     }
     
     @RequestMapping("/list")
-    public String queryInfo(Model model, @ModelAttribute UserInfo u) {
-    	List<Message> l = incidentsService.getAgentIncidents(u.getName());
-    	Message m = new Message();
+    public String queryInfo(Model model, HttpSession s) {
+    	List<Message> l = incidentsService.getAgentIncidents((String)s.getAttribute("user"));
+    	/*Message m = new Message();
+    	m.setName("esteban");
+    	m.setKind(2);
     	m.setAditionalInfo("aditional info");
     	m.setLocation("canada");
     	m.setMessage("mesage");
     	m.setTitle("tutulo");
     	m.setState(1);
-    	String [] s = {"tag1", "tag2", "tag3", "tag4"};
-     	m.setTags(s);
-    	l.add(m);
+    	String [] s1 = {"tag1", "tag2", "tag3", "tag4"};
+     	m.setTags(s1);
+    	l.add(m);*/
     	model.addAttribute("incidentList", l);
         return "list";
     }

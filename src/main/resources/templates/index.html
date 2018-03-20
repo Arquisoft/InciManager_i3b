@@ -8,6 +8,7 @@
 <form action="/send" th:object="${message}" method="POST">
     <h2><label>Submit new incident:</label></h2>
     <p>Name: <input type="text" id="name" th:attr="value=${name}" disabled="disabled"/></p>
+    <p>Kind: <input type="text" id="kind" th:attr="value=${kind}" disabled="disabled"/></p>
     <p>Title: <input type="text" id="title" th:field="*{title}" /></p>
     <p>Description: <input type="text" id="message" th:field="*{message}" /></p>
 	<p>Aditional info: <input type="text" id="aditionalInfo" th:field="*{aditionalInfo}" /></p>
