@@ -1,7 +1,9 @@
 package hello;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -58,10 +60,22 @@ public class MainController {
     
     @PostMapping("/send")
     public String send(HttpSession session, Model model, @Validated Message message) {
+    	//set user 
     	message.setName((String) session.getAttribute("user"));
         message.setKind((int) session.getAttribute("kind"));
+        //set tags
         String[] t = message.getTagsString().split(" ");
         message.setTags(t);
+        //set map of custom files
+        Map<String, String> m = new HashMap<String, String>();
+        String[] n = message.getCustomFieldsNames().split(" ");
+        String[] v = message.getCustomFieldsValues().split(" ");
+        if(n.length==v.length)
+        {
+        for(int i = 0; i < n.length ; i++)
+             m.put(n[i], v[i]);
+        }
+        message.setCustomFields(m);
         incidentsService.addIncident("exampleTopic", message);
         return "redirect:/";
     }

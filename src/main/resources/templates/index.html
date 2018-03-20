@@ -13,7 +13,10 @@
     <p>Description: <input type="text" id="message" th:field="*{message}" /></p>
 	<p>Aditional info: <input type="text" id="aditionalInfo" th:field="*{aditionalInfo}" /></p>
 	<p>Tags (separated by " " please): <input type="text" id="tags" th:field="*{tagsString}"/></p>
-	<!--<p>Custom fields: <input type="text" id="customFields" th:field="*{customFields}" /></p>-->
+	<p>Custom fields:</p>
+	<p>(if you don't put the same number of names, nothing will be added)</p>
+	<p>		Names(separated by " " please): <input type="text" id="customFieldsNames" th:field="*{customFieldsNames}" /> </p>
+    <p>		Values(separated by " " please): <input type="text" id="customFieldsValues" th:field="*{customFieldsValues}" /> </p>
     <input type="submit" value="Notify Incident" />
 </form>
 

@@ -21,6 +21,24 @@ public class Message {
 	private String aditionalInfo;
 	private int kind;
 	private Map<String, String> customFields;
+	private String customFieldsNames;
+	private String customFieldsValues;
+	
+	public String getCustomFieldsNames() {
+		return customFieldsNames;
+	}
+
+	public void setCustomFieldsNames(String customFieldsNames) {
+		this.customFieldsNames = customFieldsNames;
+	}
+
+	public String getCustomFieldsValues() {
+		return customFieldsValues;
+	}
+
+	public void setCustomFieldsValues(String customFieldsValues) {
+		this.customFieldsValues = customFieldsValues;
+	}
 
 	public String getTagsString() {
 		return tagsString;
