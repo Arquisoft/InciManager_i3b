@@ -25,12 +25,6 @@ public class MainController {
         return "redirect:/logIn";
     }
     
-    /*@RequestMapping("/")
-    public String landing(Model model) {
-        model.addAttribute("message", new Message());
-        return "index";
-    }*/
-    
     @RequestMapping("/index")
     public String index(Model model) {
         model.addAttribute("message", new Message());
@@ -58,7 +52,7 @@ public class MainController {
     
     @RequestMapping("/send")
     public String send(Model model, @ModelAttribute Message message) {
-        kafkaProducer.send("exampleTopic", message.getMessage());
+        //incidentService.add("exampleTopic", message);
         return "redirect:/";
     }
     
