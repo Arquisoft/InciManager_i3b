@@ -16,11 +16,20 @@ public class Message {
 	private String location;
 	private int state;
 	private String[] tags;
+	private String tagsString;
 	private String agentName;
 	private String aditionalInfo;
 	private int kind;
 	private Map<String, String> customFields;
 
+	public String getTagsString() {
+		return tagsString;
+	}
+
+	public void setTagsString(String tagsString) {
+		this.tagsString = tagsString;
+	}
+	
 	public String getMessage() {
 		return message;
 	}

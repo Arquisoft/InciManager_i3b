@@ -12,7 +12,7 @@
     <p>Title: <input type="text" id="title" th:field="*{title}" /></p>
     <p>Description: <input type="text" id="message" th:field="*{message}" /></p>
 	<p>Aditional info: <input type="text" id="aditionalInfo" th:field="*{aditionalInfo}" /></p>
-	<p>Tags: <input type="text" id="tags" th:field="*{tags}" /></p>
+	<p>Tags (separated by " " please): <input type="text" id="tags" th:field="*{tagsString}"/></p>
 	<!--<p>Custom fields: <input type="text" id="customFields" th:field="*{customFields}" /></p>-->
     <input type="submit" value="Notify Incident" />
 </form>

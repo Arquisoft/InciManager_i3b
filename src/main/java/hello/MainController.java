@@ -60,6 +60,8 @@ public class MainController {
     public String send(HttpSession session, Model model, @Validated Message message) {
     	message.setName((String) session.getAttribute("user"));
         message.setKind((int) session.getAttribute("kind"));
+        String[] t = message.getTagsString().split(" ");
+        message.setTags(t);
         incidentsService.addIncident("exampleTopic", message);
         return "redirect:/";
     }
