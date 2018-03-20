@@ -1,4 +1,4 @@
-package entities;
+package hello.entities;
 
 import java.util.Map;
 

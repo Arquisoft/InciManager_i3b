@@ -1,4 +1,4 @@
-package services;
+package hello.services;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
-import entities.Message;
+import hello.entities.Message;
 import hello.producers.KafkaProducer;
-import repositories.IncidentsRepository;
+import hello.repositories.IncidentsRepository;
 
 @Service
 public class IncidentsService {
@@ -20,14 +20,15 @@ public class IncidentsService {
 	private KafkaProducer kafkaProducer;
 	
 	public void addIncident(String topic, Message incident) {
-		incidentsRepository.save(incident);
+		//incidentsRepository.save(incident);
 		Gson gson = new Gson();
 		String kafkaMessage = gson.toJson(incident);
-		kafkaProducer.send(topic, kafkaMessage);
+		//kafkaProducer.send(topic, kafkaMessage);
 	}
 	
 	public List<Message> getAgentIncidents(String agentName) {
-		return incidentsRepository.getIncidentsByAgentName(agentName);
+		//return incidentsRepository.getIncidentsByAgentName(agentName);
+		return null;
 	}
 
 }
