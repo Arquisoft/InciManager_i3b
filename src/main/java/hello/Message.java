@@ -7,17 +7,17 @@ import java.util.Map;
  */
 public class Message {
 
-    public String message;
-    public String title;
-    public String location;
-    public int state;
-    public String[] tags;
-    public String name;
+	public String message;
+	public String title;
+	public String location;
+	public int state;
+	public String[] tags;
+	public String name;
 	public String aditionalInfo;
 	public int kind;
 	public Map<String, String> customFields;
-	
-    public Map<String, String> getCustomFields() {
+
+	public Map<String, String> getCustomFields() {
 		return customFields;
 	}
 
@@ -61,7 +61,7 @@ public class Message {
 		this.location = location;
 	}
 
-    public String getTitle() {
+	public String getTitle() {
 		return title;
 	}
 
@@ -69,10 +69,10 @@ public class Message {
 		return location;
 	}
 
-	public Message() {}
-	
+	public Message() {
+	}
 
-    public String[] getTags() {
+	public String[] getTags() {
 		return tags;
 	}
 
@@ -85,11 +85,11 @@ public class Message {
 	}
 
 	public String getMessage() {
-        return message;
-    }
+		return message;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 }

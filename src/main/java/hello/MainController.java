@@ -1,13 +1,16 @@
 package hello;
 
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -44,16 +47,17 @@ public class MainController {
     	{
     		return "logIn";	
     	}else {
-    		model.addAttribute("user",u);
+    		redirect.addFlashAttribute("user",u);
     		redirect.addFlashAttribute("name", u.getName());
     		redirect.addFlashAttribute("kind", u.getKind());
         return "redirect:index";}
     }
     
-    @RequestMapping("/send")
-    public String send(Model model, @ModelAttribute Message message, @ModelAttribute UserInfo u) {
+    @PostMapping("/send")
+    public String send(Model model, @Validated Message message) {
     	//de alguna manera deveria de introducirle al mensaje los atributos name y kind de userInfo
         //incidentService.add("exampleTopic", message);
+    	System.out.println();
         return "redirect:/";
     }
     
