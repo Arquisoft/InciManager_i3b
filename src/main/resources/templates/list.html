@@ -10,12 +10,20 @@
 		<th>Title</th>
 		<th>Description</th>
 		<th>Location</th>
+		<th>State</th>
+		<th>Tags</th>
+		<th>Coments</th>
 	</tr>
-	<tr th:each"incident : ${incidentList}">
+	<th:block th:each="incident : ${incidentList}" >
+	<tr>
 		<td th:text="${incident.title}"></td>
-		<td th:text="${incident.descripcion}"></td>
+		<td th:text="${incident.message}"></td>
 		<td th:text="${incident.location}"></td>
+		<td th:text="${incident.state}"></td>
+		<td th:text = "${#strings.arrayJoin(incident.tags, ', ')}"></td>
+		<td th:text="${incident.aditionalInfo}"></td>
 	</tr>
+	</th:block>
 </table>
 </body>
 </html>

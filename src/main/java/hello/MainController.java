@@ -1,6 +1,9 @@
 package hello;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +66,17 @@ public class MainController {
     public String queryInfo(Model model, @ModelAttribute UserInfo u) {
         //list = lista(u.getName(), u.kind());
     	//model.addAttribute("incidentsList", list);
+    	List<Message> l = new ArrayList<Message>();
+    	Message m = new Message();
+    	m.setAditionalInfo("aditional info");
+    	m.setLocation("canada");
+    	m.setMessage("mesage");
+    	m.setTitle("tutulo");
+    	m.setState(1);
+    	String [] s = {"tag1", "tag2", "tag3", "tag4"};
+     	m.setTags(s);
+    	l.add(m);
+    	model.addAttribute("incidentList", l);
         return "list";
     }
 

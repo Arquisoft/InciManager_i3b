@@ -5,9 +5,32 @@ package hello;
  */
 public class Message {
 
-    private String message;
-    private String title;
-    private String location;
+    public String message;
+    public String title;
+    public String location;
+    public int state;
+    public String[] tags;
+    public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+	public String getAditionalInfo() {
+		return aditionalInfo;
+	}
+
+	public void setAditionalInfo(String aditionalInfo) {
+		this.aditionalInfo = aditionalInfo;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String aditionalInfo;
 
     public String getTitle() {
 		return title;
@@ -18,8 +41,21 @@ public class Message {
 	}
 
 	public Message() {}
+	
 
-    public String getMessage() {
+    public String[] getTags() {
+		return tags;
+	}
+
+	public void setTags(String[] tags) {
+		this.tags = tags;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getMessage() {
         return message;
     }
 
