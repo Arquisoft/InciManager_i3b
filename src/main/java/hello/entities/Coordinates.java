@@ -1,12 +1,13 @@
 package hello.entities;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class Coordinates {
 
 	private double longitude;
 	private double latitude;
-	private Random r;
+	private Random r = new Random();
 	
 	public Coordinates() {
 		this.longitude = r.nextDouble()*100;
@@ -23,7 +24,8 @@ public class Coordinates {
 
 	public String getCoordinates()
 	{
-		return "Lat : " +latitude + " | Long : " +longitude;
+		DecimalFormat df = new DecimalFormat("#.##");  
+		return "Lat : " + df.format(getLatitud()) + " | Long : " + df.format(getLongitud());
 	}
 
 }

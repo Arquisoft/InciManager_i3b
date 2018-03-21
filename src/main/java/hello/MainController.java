@@ -75,9 +75,9 @@ public class MainController {
         }
         message.setCustomFields(m);
         //set Coords
-       /* Coordinates coor = new Coordinates();
-        message.setLocation(coor.getCoordinates());
-      */
+        Coordinates coor = new Coordinates();
+        message.setLocation(""+coor.getCoordinates());
+      
         incidentsService.addIncident("exampleTopic", message);
         return "redirect:index";
     }
