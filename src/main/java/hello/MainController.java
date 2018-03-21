@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import hello.entities.Coordinates;
 import hello.entities.Message;
 import hello.services.IncidentsService;
 
@@ -73,13 +74,10 @@ public class MainController {
              m.put(n[i], v[i]);
         }
         message.setCustomFields(m);
-        /*String s ="";
-		for(int i = 0; i<m.size();i++)
-		{
-			s+=" NAme " + m.keySet().toArray()[i];
-			s+=" val " + m.values().toArray()[i];
-		}
-		System.out.println(s);*/
+        //set Coords
+       /* Coordinates coor = new Coordinates();
+        message.setLocation(coor.getCoordinates());
+      */
         incidentsService.addIncident("exampleTopic", message);
         return "redirect:index";
     }
