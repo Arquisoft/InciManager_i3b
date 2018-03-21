@@ -1,52 +1,66 @@
 package hello;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertThat;
-
-import java.net.URL;
+import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@IntegrationTest({"server.port=0"})
+@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 public class MainControllerTest {
+	
+	private MockMvc mockMvc;
 
-    @Value("${local.server.port}")
-    private int port;
+    @Autowired
+    private WebApplicationContext context;
 
-    private URL base;
-	private RestTemplate template;
-
-	@Before
-	public void setUp() throws Exception {
-		this.base = new URL("http://localhost:" + port + "/");
-		template = new TestRestTemplate();
-	}
-
+    @Before
+    public void setUp() throws Exception {
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
+	
 	@Test
-	public void getLanding() throws Exception {
-		String userURI = base.toString() + "/user";  
-		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
-		assertThat(response.getBody(), containsString("Hola"));
+    public void testGetLoginPage() throws Exception {
+		mockMvc.perform(get("/logIn"))
+        .andExpect(status().isOk())
+        .andExpect(content().string(containsString("Username:")))
+        .andExpect(content().string(containsString("Password:")))
+        .andExpect(content().string(containsString("Kind:")));		
 	}
 	
 	@Test
-	public void getUser() throws Exception {
-		String userURI = base.toString() + "/user";  
-		ResponseEntity<String> response = template.getForEntity(userURI, String.class);
-		UserInfo expected = new UserInfo("pepe",0);
+    public void testPostLoginPageCorrectKind() throws Exception {
+		mockMvc.perform(post("/logIn")
+	              .param("loging", "Pepe")
+	              .param("password", "123456")
+	    		  .param("kind","1"))
+	              .andExpect(status().is3xxRedirection())
+	              .andExpect(redirectedUrl("index"));	
 	}
-
+	
+	@Test
+    public void testPostLoginPageWrongKind() throws Exception {
+		mockMvc.perform(post("/logIn")
+	              .param("loging", "Pepe")
+	              .param("password", "123456")
+	    		  .param("kind","54654"))
+	              .andExpect(status().isOk())
+	              .andExpect(content().string(containsString("LOG IN")));	
+	}
 }
