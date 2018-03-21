@@ -93,10 +93,11 @@ public class MainController {
     }
     
     @RequestMapping(value="/add-custom-field")
-    public String addCustomField(HttpSession session, @RequestParam("key") String key, @RequestParam("value") String value) {
+    public String addCustomField(HttpSession session, @RequestParam("key") String key, @RequestParam("value") String value, RedirectAttributes redirect) {
     	Map<String, String> map = (Map<String, String>) session.getAttribute("map");
     	map.put(key, value);
-    	session.setAttribute("map", map);
+    	redirect.addFlashAttribute("name",session.getAttribute("user"));
+    	redirect.addFlashAttribute("kind",session.getAttribute("kind"));
     	return "redirect:index";
     }
     
