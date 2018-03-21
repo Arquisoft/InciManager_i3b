@@ -1,3 +1,7 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b5d64269cf03473490c78be25236e70b)](https://www.codacy.com/app/jelabra/Agents_i3b?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Arquisoft/Agents_i3b&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/Arquisoft/Agents_i3b.svg?branch=master)](https://travis-ci.org/Arquisoft/Agents_i3b)
+[![codecov](https://codecov.io/gh/Arquisoft/Agents_i3b/branch/master/graph/badge.svg)](https://codecov.io/gh/Arquisoft/Agents_i3b)
+
 # Incident Management System (Group i3b)
 This module is part of the system being devoloped for the subject "Software Architecture" . It is part of the Degree in Software Engineering in the University of Oviedo.
 The system is being developed by two teams ([Team 1](https://github.com/orgs/Arquisoft/teams/course1718_i3b1) and [Team 2](https://github.com/orgs/Arquisoft/teams/course1718_i3b2)) and is separated in four modules. These modules are:
