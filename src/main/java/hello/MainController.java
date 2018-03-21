@@ -69,12 +69,17 @@ public class MainController {
         Map<String, String> m = new HashMap<String, String>();
         String[] n = message.getCustomFieldsNames().split(" ");
         String[] v = message.getCustomFieldsValues().split(" ");
-        if(n.length==v.length)
-        {
-        for(int i = 0; i < n.length ; i++)
+        for(int i = 0; i < n.length ; i++) {
              m.put(n[i], v[i]);
         }
         message.setCustomFields(m);
+        /*String s ="";
+		for(int i = 0; i<m.size();i++)
+		{
+			s+=" NAme " + m.keySet().toArray()[i];
+			s+=" val " + m.values().toArray()[i];
+		}
+		System.out.println(s);*/
         incidentsService.addIncident("exampleTopic", message);
         return "redirect:index";
     }
