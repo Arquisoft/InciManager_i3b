@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -15,9 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import hello.entities.Coordinates;
 import hello.entities.Message;
 import hello.services.IncidentsService;
 
@@ -33,9 +35,7 @@ public class MainController {
     }
     
     @RequestMapping("/index")
-    public String index(Model model, HttpSession session) {
-    	model.addAttribute("user",(String) session.getAttribute("user"));
-    	model.addAttribute("kind", session.getAttribute("kind"));
+    public String index(HttpSession session ,Model model) {
         model.addAttribute("message", new Message());
         return "index";
     }
@@ -55,7 +55,11 @@ public class MainController {
     	}else {
     		session.setAttribute("user", u.getName());
     		session.setAttribute("kind", u.getKind());
-    		return "redirect:index";}
+            session.setAttribute("map", new HashMap<String, String>());
+    		redirect.addFlashAttribute("user",u);
+    		redirect.addFlashAttribute("name", u.getName());
+    		redirect.addFlashAttribute("kind", u.getKind());
+        return "redirect:index";}
     }
     
     @PostMapping("/send")
@@ -63,23 +67,13 @@ public class MainController {
     	//set user 
     	message.setName((String) session.getAttribute("user"));
         message.setKind((int) session.getAttribute("kind"));
-        //set tags
-        String[] t = message.getTagsString().split(" ");
-        message.setTags(t);
-        //set map of custom files
-        Map<String, String> m = new HashMap<String, String>();
-        String[] n = message.getCustomFieldsNames().split(" ");
-        String[] v = message.getCustomFieldsValues().split(" ");
-        for(int i = 0; i < n.length ; i++) {
-             m.put(n[i], v[i]);
-        }
-        message.setCustomFields(m);
+        message.setCustomFields((Map<String, String>) session.getAttribute("map"));
         //set Coords
         Coordinates coor = new Coordinates();
         message.setLocation(""+coor.getCoordinates());
       
         incidentsService.addIncident("exampleTopic", message);
-        return "redirect:index";
+        return "redirect:/";
     }
     
     @RequestMapping("/list")
@@ -99,5 +93,14 @@ public class MainController {
     	model.addAttribute("incidentList", l);
         return "list";
     }
-
+    
+    @RequestMapping(value="/add-custom-field")
+    public String addCustomField(HttpSession session, @RequestParam("key") String key, @RequestParam("value") String value, RedirectAttributes redirect) {
+    	Map<String, String> map = (Map<String, String>) session.getAttribute("map");
+    	map.put(key, value);
+    	redirect.addFlashAttribute("name",session.getAttribute("user"));
+    	redirect.addFlashAttribute("kind",session.getAttribute("kind"));
+    	return "redirect:index";
+    }
+    
 }

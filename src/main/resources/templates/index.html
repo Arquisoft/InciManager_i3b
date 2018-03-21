@@ -1,36 +1,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>UserPage</title>
-<style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            font-family: "Helvetica Neue", Helvetica, sans-serif;
-            color: #444;
-            -webkit-font-smoothing: antialiased;
-            background: #f0f0f0;
-        }
-        form {
-            margin: 0 auto;
-        margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
 <h1>User Page</h1>
 
+<h2><label>Submit new incident:</label></h2>
+
+<form action="/add-custom-field" method="post">
+	<h3><label>Add new fields to the incident:</label></h3>
+	<p>Field name: <input type="text" id="key" name="key"/></p>
+    <p>Value: <input type="text" id="value" name="value"/></p>
+    <button type="submit">Add field</button>
+</form>
+
 <form action="/send" th:object="${message}" method="POST">
-    <h2><label>Submit new incident:</label></h2>
-    <p>Name: <input type="text" id="name" th:attr="value=${user} + ''" disabled="disabled"/></p>
+    <p>Name: <input type="text" id="name" th:attr="value=${name}" disabled="disabled"/></p>
     <p>Kind: <input type="text" id="kind" th:attr="value=${kind}" disabled="disabled"/></p>
     <p>Title: <input type="text" id="title" th:field="*{title}" /></p>
     <p>Description: <input type="text" id="message" th:field="*{message}" /></p>
 	<p>Aditional info: <input type="text" id="aditionalInfo" th:field="*{aditionalInfo}" /></p>
-	<p>Tags (separated by " " please): <input type="text" id="tags" th:field="*{tagsString}"/></p>
-	<p>Custom fields:</p>
-	<p>(if you don't put the same number of names, nothing will be added)</p>
-	<p>		Names(separated by " " please): <input type="text" id="customFieldsNames" th:field="*{customFieldsNames}" /> </p>
-    <p>		Values(separated by " " please): <input type="text" id="customFieldsValues" th:field="*{customFieldsValues}" /> </p>
+	<p>Tags (separated by "," please): <input type="text" id="tags" th:field="*{tags}"/></p>
     <input type="submit" value="Notify Incident" />
 </form>
 
