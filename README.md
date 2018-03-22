@@ -11,7 +11,7 @@ The system is being developed by two teams ([Team 1](https://github.com/orgs/Arq
 # InciManager
 This module allows Agents to create new incidents and view their previously created incidents.
 In order to deploy it you must first download [Apache Kafka](https://www.apache.org/dyn/closer.cgi?path=/kafka/1.0.1/kafka_2.11-1.0.1.tgz) and deploy it, then run the application and connect to it at localhost:8080
-The module also requires MongoDB, that can be downloaded [here](https://www.mongodb.com/download-center#community), to be executed beforehand.
+The module also requires MongoDB, that can be downloaded [here](https://www.mongodb.com/download-center#community), to be executed beforehand. 
 
 # Authors
 
