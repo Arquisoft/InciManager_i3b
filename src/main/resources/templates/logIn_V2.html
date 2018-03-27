@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Login</title>
+<style>
+html, body {
+	width: 100%;
+	height: 100%;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	color: #444;
+	-webkit-font-smoothing: antialiased;
+	background: #f0f0f0;
+}
+
+form {
+	margin: 0 auto;
+	margin-top: 20px;
+}
+</style>
+</head>
+<body>
+	<h1>LOG IN</h1>
+	<div id="loginform">
+		<form th:action="@{/logIn}" method="POST">
+			<p>
+				<label for="login">Username:</label> <input type="text" id="login"
+					name="name" />
+			</p>
+			<p>
+				<label for="password">Password:</label> <input type="password"
+					id="password" name="password" />
+			</p>
+			<p>
+				<label for="kind">Kind:</label> <input type="text" id="kind"
+					name="kind" />
+			</p>
+			<input type="submit" value="Login" />
+		</form>
+	</div>
+</body>
+</html>

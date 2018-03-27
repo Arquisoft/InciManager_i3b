@@ -88,12 +88,13 @@ public class MainController {
 
 	@RequestMapping(value = "/add-custom-field")
 	public String addCustomField(HttpSession session, @RequestParam("key") String key,
-			@RequestParam("value") String value, RedirectAttributes redirect) {
+			@RequestParam("value") String value, RedirectAttributes redirect, Model model) {
 		Map<String, String> map = (Map<String, String>) session.getAttribute("map");
 		map.put(key, value);
-		redirect.addFlashAttribute("name", session.getAttribute("user"));
-		redirect.addFlashAttribute("kind", session.getAttribute("kind"));
-		return "redirect:index";
+//		redirect.addFlashAttribute("name", session.getAttribute("user"));
+//		redirect.addFlashAttribute("kind", session.getAttribute("kind"));
+		model.addAttribute("fieldsMap", map);
+		return "index :: tableFields";
 	}
 
 }

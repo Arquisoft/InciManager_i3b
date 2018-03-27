@@ -1,71 +1,93 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>UserPage</title>
-<style>
-html, body {
-	width: 100%;
-	height: 100%;
-	font-family: "Helvetica Neue", Helvetica, sans-serif;
-	color: #444;
-	-webkit-font-smoothing: antialiased;
-	background: #f0f0f0;
-}
-
-form {
-	margin: 0 auto;
-	margin-top: 20px;
-}
-</style>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head" />
 <body>
-	<h1>User Page</h1>
-
-	<h2>
-		<label>Submit new incident:</label>
-	</h2>
-
-	<form action="/add-custom-field" method="post">
-		<h3>
-			<label>Add new fields to the incident:</label>
-		</h3>
-		<p>
-			Field name: <input type="text" id="key" name="key" />
-		</p>
-		<p>
-			Value: <input type="text" id="value" name="value" />
-		</p>
-		<button type="submit">Add field</button>
-	</form>
-
-	<form action="/send" th:object="${message}" method="POST">
-		<p>
-			Name: <input type="text" id="name" th:attr="value=${name}"
-				disabled="disabled" />
-		</p>
-		<p>
-			Kind: <input type="text" id="kind" th:attr="value=${kind}"
-				disabled="disabled" />
-		</p>
-		<p>
-			Title: <input type="text" id="title" th:field="*{title}" />
-		</p>
-		<p>
-			Description: <input type="text" id="message" th:field="*{message}" />
-		</p>
-		<p>
-			Aditional info: <input type="text" id="aditionalInfo"
-				th:field="*{aditionalInfo}" />
-		</p>
-		<p>
-			Tags (separated by "," please): <input type="text" id="tags"
-				th:field="*{tags}" />
-		</p>
-		<input type="submit" value="Notify Incident" />
-	</form>
-
-	<h2>Review my incidents:</h2>
-	<form th:action="@{/list}" method="POST">
-		<input type="submit" value="List" />
-	</form>
+    <!-- Barra de Navegación superior -->
+    <nav th:replace="fragments/nav_logged" />
+    <div class="container">
+        <h2>Create a new incident</h2>
+		<div class="container">
+			<h3>Incidence form</h3>
+			<form action="/add-custom-field" method="post">
+				<div class="container">
+					<h4>Add new fields to the incident:</h4>
+					<div class="table-responsive">
+			            <table class="table table-hover" th:fragment="tableFields"
+				id="tableFields">
+			                <thead>
+			                    <tr>
+			                        <th>Field</th>
+			                        <th>Value</th>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                    <tr th:each="entry : ${fieldsMap}">
+			                        <td th:text="${entry.key}"></td>
+			                        <td th:text="${entry.value}"></td>   
+			                    </tr>
+			                </tbody>
+			            </table>
+        			</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="key">Field name:</label>
+						<div class="col-sm-10">
+							<input type="text" id="key" name="key" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="value">Value:</label>
+						<div class="col-sm-10">
+							<input type="text" id="value" name="value" />
+						</div>
+					</div>
+				</div>
+				<p></p>
+				<button type="submit" id="addButton" class="btn btn-primary">Add field</button>
+				<p></p>
+				<script th:inline="javascript">
+					/*<![CDATA[*/ 
+					$( "#addButton" ).click(function() {
+						var urlUpdate = '/add-custom-field';
+						$("#tableFields").load(urlUpdate);
+					});
+					/*]]>*/
+				</script>
+			</form>
+			<form action="/send" th:object="${message}" method="POST">
+				<div class="container">
+				<h4>Other fileds:</h4>
+			       	<div class="form-group">
+						<label class="control-label col-sm-2" for="title">Title:</label>
+						<div class="col-sm-10">
+							<input type="text" id="title" th:field="*{title}" required="required" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="message">Description:</label>
+						<div class="col-sm-10">
+							<input type="text" id="message" th:field="*{message}" required="required" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="aditionalInfo">Aditional info:</label>
+						<div class="col-sm-10">
+							<input type="text" id="aditionalInfo" th:field="*{aditionalInfo}" required="required" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="tags">Tags (separated by "," please):</label>
+						<div class="col-sm-10">
+							<input type="text" id="tags" th:field="*{tags}" required="required" />
+						</div>
+					</div>
+				</div>
+				<p></p>
+				<button type="submit" class="btn btn-primary">Notify incident</button>
+				<p></p>
+			</form>
+		</div>
+    </div>
+    <footer th:replace="fragments/footer" />
 </body>
+
 </html>
