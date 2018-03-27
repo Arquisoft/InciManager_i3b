@@ -1,4 +1,4 @@
-package hello.services;
+package uniovi.es.services;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
-import hello.entities.Message;
-import hello.producers.KafkaProducer;
-import hello.repositories.IncidentsRepository;
+import uniovi.es.entities.Message;
+import uniovi.es.producers.KafkaProducer;
+import uniovi.es.repositories.IncidentsRepository;
 
 @Service
 public class IncidentsService {

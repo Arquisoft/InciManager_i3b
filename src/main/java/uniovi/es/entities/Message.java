@@ -1,4 +1,4 @@
-package hello.entities;
+package uniovi.es.entities;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package hello;
+package uniovi.es;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -12,8 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import hello.entities.Message;
-import hello.repositories.IncidentsRepository;
+import uniovi.es.entities.Message;
+import uniovi.es.repositories.IncidentsRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)

@@ -1,4 +1,4 @@
-package hello;
+package uniovi.es;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import hello.entities.Message;
-import hello.repositories.IncidentsRepository;
+import uniovi.es.entities.Message;
+import uniovi.es.repositories.IncidentsRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)

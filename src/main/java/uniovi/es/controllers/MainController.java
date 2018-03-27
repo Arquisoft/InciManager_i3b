@@ -1,4 +1,4 @@
-package hello.controllers;
+package uniovi.es.controllers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,21 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import hello.entities.Coordinates;
-import hello.entities.Message;
-import hello.entities.UserInfo;
-import hello.services.IncidentsService;
+import uniovi.es.entities.Coordinates;
+import uniovi.es.entities.Message;
+import uniovi.es.entities.UserInfo;
+import uniovi.es.services.IncidentsService;
+
+
 
 @Controller
 public class MainController {
 
 	@Autowired
 	private IncidentsService incidentsService;
-
-	@RequestMapping("/")
-	public String landing() {
-		return "redirect:/logIn";
-	}
 
 	@RequestMapping("/index")
 	public String index(HttpSession session, Model model) {
@@ -53,7 +50,7 @@ public class MainController {
 
 	@RequestMapping(value = "/logIn", method = RequestMethod.POST)
 	public String log(HttpSession session, @ModelAttribute UserInfo u, RedirectAttributes redirect) {
-		if (u.getKind() < 0 || u.getKind() > 3 || session.getAttribute("user").equals("")) {
+		if (u.getKind() < 0 || u.getKind() > 3) {
 			return "redirect:logIn";
 		} else {
 			session.setAttribute("user", u.getName());
@@ -68,6 +65,9 @@ public class MainController {
 
 	@PostMapping("/send")
 	public String send(HttpSession session, @Validated Message message) {
+		if (session.getAttribute("user").equals("")) {
+			return "redirect:logIn";
+		}
 		// set user
 		message.setName((String) session.getAttribute("user"));
 		message.setKind((int) session.getAttribute("kind"));
