@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>List</title>
+<style>
+html, body {
+	width: 100%;
+	height: 100%;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	color: #444;
+	-webkit-font-smoothing: antialiased;
+	background: #f0f0f0;
+}
+
+table, th, td {
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+	<h1>Incident List</h1>
+	<table>
+		<tr>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Location</th>
+			<th>State</th>
+			<th>Tags</th>
+			<th>Additional Info</th>
+			<th>Current Fields Names</th>
+			<th>Current Fields Values</th>
+		</tr>
+		<th:block th:each="incident : ${incidentList}">
+			<tr>
+				<td th:text="${incident.title}"></td>
+				<td th:text="${incident.message}"></td>
+				<td th:text="${incident.location}"></td>
+				<td th:text="${incident.state}"></td>
+				<td th:text="${#strings.arrayJoin(incident.tags, ', ')}"></td>
+				<td th:text="${incident.aditionalInfo}"></td>
+				<td
+					th:text="${#strings.arrayJoin(incident.customFields.keySet(), ', ')}"></td>
+				<td
+					th:text="${#strings.arrayJoin(incident.customFields.values(), ', ')}"></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>

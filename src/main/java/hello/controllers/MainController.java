@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hello.entities.Coordinates;
@@ -37,6 +36,7 @@ public class MainController {
 	@RequestMapping("/index")
 	public String index(HttpSession session, Model model) {
 		model.addAttribute("message", new Message());
+		session.setAttribute("map", new HashMap<String, String>());
 		return "index";
 	}
 
@@ -72,7 +72,7 @@ public class MainController {
 
 		incidentsService.addIncident("exampleTopic", message);
 		session.setAttribute("map", new HashMap<String, String>());
-		return "redirect:index";
+		return "redirect:list";
 	}
 
 	@RequestMapping("/list")
