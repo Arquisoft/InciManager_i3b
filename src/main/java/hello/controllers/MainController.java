@@ -71,7 +71,8 @@ public class MainController {
 		message.setLocation("" + coor.getCoordinates());
 
 		incidentsService.addIncident("exampleTopic", message);
-		return "redirect:/";
+		session.setAttribute("map", new HashMap<String, String>());
+		return "redirect:index";
 	}
 
 	@RequestMapping("/list")
