@@ -46,42 +46,42 @@ public class MainControllerTest {
         .andExpect(status().isOk())
         .andExpect(content().string(containsString("Username:")))
         .andExpect(content().string(containsString("Password:")))
-        .andExpect(content().string(containsString("Kind:")));		
+        .andExpect(content().string(containsString("KindCode:")));		
 	}
 	
 	@Test
     public void testPostLoginPageCorrectKind() throws Exception {
 		mockMvc.perform(post("/logIn")
-	              .param("loging", "Pepe")
+	              .param("name", "Pepe")
 	              .param("password", "123456")
 	    		  .param("kind","1"))
 	              .andExpect(status().is3xxRedirection())
-	              .andExpect(redirectedUrl("index"));	
+	              .andExpect(redirectedUrl("createIncidence"));	
 	}
 	
 	@Test
     public void testPostLoginPageWrongKind() throws Exception {
 		mockMvc.perform(post("/logIn")
-	              .param("loging", "Pepe")
+	              .param("name", "Pepe")
 	              .param("password", "123456")
 	    		  .param("kind","54654"))
-	              .andExpect(status().isOk())
-	              .andExpect(content().string(containsString("LOG IN")));	
+	              .andExpect(status().is3xxRedirection())
+	              .andExpect(redirectedUrl("logIn"));		
 	}
 	
 	@Test
-    public void testGetIndexPage() throws Exception {
-		mockMvc.perform(get("/index")
-				.flashAttr("name", "Pepe")
-				.flashAttr("kind", "1"))
+    public void testGetCreateIncidence() throws Exception {
+		mockMvc.perform(get("/createIncidence")
+				.sessionAttr("user", "Pepe")
+				.sessionAttr("kind", "1"))
         		.andExpect(status().isOk())
-        		.andExpect(content().string(containsString("Pepe")))
-        		.andExpect(content().string(containsString("1")))
-        		.andExpect(content().string(containsString("User Page")));		
+        		.andExpect(content().string(containsString("Create a new incident")))
+        		.andExpect(content().string(containsString("Add new fields to the incident:")))
+        		.andExpect(content().string(containsString("Other fields:")));		
 	}
 	
 	@Test
-    public void testPostSend() throws Exception {
+    public void testPostCreateIncidence() throws Exception {
 //		mockMvc.perform(post("/send")
 //				.sessionAttr("user", "Pepe")
 //				.sessionAttr("kind", "1"))
@@ -111,21 +111,20 @@ public class MainControllerTest {
 	 	
 	 	incidentsRepository.save(m);
 		
-//		mockMvc.perform(get("/list")
-//				.sessionAttr("user", "Pepe"))
-//        		.andExpect(status().isOk())
-//        		.andExpect(content().string(containsString("Pepe")))
-//        		.andExpect(content().string(containsString("Grado 2")))
-//        		.andExpect(content().string(containsString("Canada")))
-//        		.andExpect(content().string(containsString("Peligro")))
-//        		.andExpect(content().string(containsString("Incendio")))
-//        		.andExpect(content().string(containsString("1")))
-//        		.andExpect(content().string(containsString("tag1")))
-//        		.andExpect(content().string(containsString("tag2")))
-//        		.andExpect(content().string(containsString("tag3")))
-//        		.andExpect(content().string(containsString("tempMax")))
-//        		.andExpect(content().string(containsString("100 grados")))
-//        		.andExpect(content().string(containsString("tag4")));	
+		mockMvc.perform(get("/listIncidences")
+				.sessionAttr("user", "Pepe"))
+        		.andExpect(status().isOk())
+        		.andExpect(content().string(containsString("Grado 2")))
+        		.andExpect(content().string(containsString("Canada")))
+        		.andExpect(content().string(containsString("Peligro")))
+        		.andExpect(content().string(containsString("Incendio")))
+        		.andExpect(content().string(containsString("1")))
+        		.andExpect(content().string(containsString("tag1")))
+        		.andExpect(content().string(containsString("tag2")))
+        		.andExpect(content().string(containsString("tag3")))
+        		.andExpect(content().string(containsString("tempMax")))
+        		.andExpect(content().string(containsString("100 grados")))
+        		.andExpect(content().string(containsString("tag4")));	
 		
 		incidentsRepository.delete(m);
 	}
