@@ -2,13 +2,13 @@
 <html lang="en">
 <head th:replace="fragments/head" />
 <body>
-    <!-- Barra de Navegación superior -->
+    <!-- Barra de Navegaciï¿½n superior -->
     <nav th:replace="fragments/nav_logged" />
     <div class="container">
         <h2>Create a new incident</h2>
 		<div class="container">
 			<h3>Incidence form</h3>
-			<form action="/add-custom-field" method="post">
+			<form id="add-custom-fields-form" method="post">
 				<div class="container">
 					<h4>Add new fields to the incident:</h4>
 					<div class="table-responsive">
@@ -42,13 +42,20 @@
 					</div>
 				</div>
 				<p></p>
-				<button type="submit" id="addButton" class="btn btn-primary">Add field</button>
+				<button type="button" id="addButton" class="btn btn-primary">Add field</button>
 				<p></p>
 				<script th:inline="javascript">
 					/*<![CDATA[*/ 
 					$( "#addButton" ).click(function() {
 						var urlUpdate = '/add-custom-field';
+						if ($('#key').val() != '') {
+							urlUpdate = urlUpdate + '/' + $('#key').val();
+					    }
+						if ($('#value').val() != '') {
+							urlUpdate = urlUpdate + '/' + $('#value').val();
+					    }
 						$("#tableFields").load(urlUpdate);
+						$("#add-custom-fields-form")[0].reset();
 					});
 					/*]]>*/
 				</script>

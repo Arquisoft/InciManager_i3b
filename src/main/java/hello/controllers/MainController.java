@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -86,9 +87,9 @@ public class MainController {
 		return "list";
 	}
 
-	@RequestMapping(value = "/add-custom-field")
-	public String addCustomField(HttpSession session, @RequestParam("key") String key,
-			@RequestParam("value") String value, RedirectAttributes redirect, Model model) {
+	@RequestMapping(value = "/add-custom-field/{key}/{value}")
+	public String addCustomField(HttpSession session, @PathVariable("key") String key,
+			@PathVariable("value") String value, RedirectAttributes redirect, Model model) {
 		Map<String, String> map = (Map<String, String>) session.getAttribute("map");
 		map.put(key, value);
 //		redirect.addFlashAttribute("name", session.getAttribute("user"));
