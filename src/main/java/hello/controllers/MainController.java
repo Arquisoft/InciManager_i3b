@@ -29,26 +29,32 @@ public class MainController {
 	private IncidentsService incidentsService;
 
 	@RequestMapping("/")
-	public String landing(Model model) {
+	public String landing() {
 		return "redirect:/logIn";
 	}
 
 	@RequestMapping("/index")
 	public String index(HttpSession session, Model model) {
+		if (session.getAttribute("user").equals("")) {
+			return "redirect:logIn";
+		}
 		model.addAttribute("message", new Message());
 		session.setAttribute("map", new HashMap<String, String>());
 		return "index";
 	}
 
 	@RequestMapping("/logIn")
-	public String log(Model model) {
+	public String log(HttpSession session) {
+		session.setAttribute("user", "");
+		session.setAttribute("kind", "");
+		session.setAttribute("map", "");
 		return "logIn";
 	}
 
 	@RequestMapping(value = "/logIn", method = RequestMethod.POST)
-	public String log(HttpSession session, Model model, @ModelAttribute UserInfo u, RedirectAttributes redirect) {
-		if (u.getKind() < 0 || u.getKind() > 3) {
-			return "logIn";
+	public String log(HttpSession session, @ModelAttribute UserInfo u, RedirectAttributes redirect) {
+		if (u.getKind() < 0 || u.getKind() > 3 || session.getAttribute("user").equals("")) {
+			return "redirect:logIn";
 		} else {
 			session.setAttribute("user", u.getName());
 			session.setAttribute("kind", u.getKind());
@@ -61,7 +67,7 @@ public class MainController {
 	}
 
 	@PostMapping("/send")
-	public String send(HttpSession session, Model model, @Validated Message message) {
+	public String send(HttpSession session, @Validated Message message) {
 		// set user
 		message.setName((String) session.getAttribute("user"));
 		message.setKind((int) session.getAttribute("kind"));
@@ -76,25 +82,23 @@ public class MainController {
 	}
 
 	@RequestMapping("/list")
-	public String queryInfo(Model model, HttpSession s) {
-		List<Message> l = incidentsService.getAgentIncidents((String) s.getAttribute("user"));
-		/*
-		 * Message m = new Message(); m.setName("esteban"); m.setKind(2);
-		 * m.setAditionalInfo("aditional info"); m.setLocation("canada");
-		 * m.setMessage("mesage"); m.setTitle("tutulo"); m.setState(1); String [] s1 =
-		 * {"tag1", "tag2", "tag3", "tag4"}; m.setTags(s1); l.add(m);
-		 */
+	public String queryInfo(Model model, HttpSession session) {
+		if (session.getAttribute("user").equals("")) {
+			return "redirect:logIn";
+		}
+		List<Message> l = incidentsService.getAgentIncidents((String) session.getAttribute("user"));
 		model.addAttribute("incidentList", l);
 		return "list";
 	}
 
 	@RequestMapping(value = "/add-custom-field/{key}/{value}")
 	public String addCustomField(HttpSession session, @PathVariable("key") String key,
-			@PathVariable("value") String value, RedirectAttributes redirect, Model model) {
+			@PathVariable("value") String value, Model model) {
+		if (session.getAttribute("user").equals("")) {
+			return "redirect:logIn";
+		}
 		Map<String, String> map = (Map<String, String>) session.getAttribute("map");
 		map.put(key, value);
-//		redirect.addFlashAttribute("name", session.getAttribute("user"));
-//		redirect.addFlashAttribute("kind", session.getAttribute("kind"));
 		model.addAttribute("fieldsMap", map);
 		return "index :: tableFields";
 	}
