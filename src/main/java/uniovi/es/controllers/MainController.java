@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,16 +28,6 @@ public class MainController {
 
 	@Autowired
 	private IncidentsService incidentsService;
-
-	@RequestMapping("/index")
-	public String index(HttpSession session, Model model) {
-		if (session.getAttribute("user").equals("")) {
-			return "redirect:logIn";
-		}
-		model.addAttribute("message", new Message());
-		session.setAttribute("map", new HashMap<String, String>());
-		return "index";
-	}
 
 	@RequestMapping("/logIn")
 	public String log(HttpSession session) {
@@ -59,12 +48,22 @@ public class MainController {
 			redirect.addFlashAttribute("user", u);
 			redirect.addFlashAttribute("name", u.getName());
 			redirect.addFlashAttribute("kind", u.getKind());
-			return "redirect:index";
+			return "redirect:createIncidence";
 		}
 	}
+	
+	@RequestMapping("/createIncidence")
+	public String createIncidenceGet(HttpSession session, Model model) {
+		if (session.getAttribute("user").equals("")) {
+			return "redirect:logIn";
+		}
+		model.addAttribute("message", new Message());
+		session.setAttribute("map", new HashMap<String, String>());
+		return "createInci";
+	}
 
-	@PostMapping("/send")
-	public String send(HttpSession session, @Validated Message message) {
+	@RequestMapping(value = "/createIncidence", method = RequestMethod.POST)
+	public String createIncidencePost(HttpSession session, @Validated Message message) {
 		if (session.getAttribute("user").equals("")) {
 			return "redirect:logIn";
 		}
@@ -78,19 +77,9 @@ public class MainController {
 
 		incidentsService.addIncident("exampleTopic", message);
 		session.setAttribute("map", new HashMap<String, String>());
-		return "redirect:list";
+		return "redirect:listIncidences";
 	}
-
-	@RequestMapping("/list")
-	public String queryInfo(Model model, HttpSession session) {
-		if (session.getAttribute("user").equals("")) {
-			return "redirect:logIn";
-		}
-		List<Message> l = incidentsService.getAgentIncidents((String) session.getAttribute("user"));
-		model.addAttribute("incidentList", l);
-		return "list";
-	}
-
+	
 	@RequestMapping(value = "/add-custom-field/{key}/{value}")
 	public String addCustomField(HttpSession session, @PathVariable("key") String key,
 			@PathVariable("value") String value, Model model) {
@@ -100,7 +89,19 @@ public class MainController {
 		Map<String, String> map = (Map<String, String>) session.getAttribute("map");
 		map.put(key, value);
 		model.addAttribute("fieldsMap", map);
-		return "index :: tableFields";
+		return "createInci :: tableFields";
 	}
+
+	@RequestMapping("/listIncidences")
+	public String queryInfo(Model model, HttpSession session) {
+		if (session.getAttribute("user").equals("")) {
+			return "redirect:logIn";
+		}
+		List<Message> l = incidentsService.getAgentIncidents((String) session.getAttribute("user"));
+		model.addAttribute("incidentList", l);
+		return "listInci";
+	}
+
+	
 
 }
