@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Arquisoft/InciManager_i3b.svg?branch=master)](https://travis-ci.org/Arquisoft/InciManager_i3b)
+[![codecov](https://codecov.io/gh/Arquisoft/InciManager_i3b/branch/master/graph/badge.svg)](https://codecov.io/gh/Arquisoft/InciManager_i3b)
 
 # Incident Management System (Group i3b)
 This module is part of the system being devoloped for the subject "Software Architecture" . It is part of the Degree in Software Engineering in the University of Oviedo.
