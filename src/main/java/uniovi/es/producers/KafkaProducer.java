@@ -7,30 +7,29 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import uniovi.es.entities.Incidence;
+
 import javax.annotation.ManagedBean;
 
-/**
- * Created by herminio on 26/12/16.
- */
 @ManagedBean
 public class KafkaProducer {
 
 	private static final Logger logger = Logger.getLogger(KafkaProducer.class);
 
 	@Autowired
-	private KafkaTemplate<String, String> kafkaTemplate;
+	private KafkaTemplate<String, Incidence> kafkaTemplate;
 
-	public void send(String topic, String data) {
-		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, data);
-		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+	public void send(String topic, Incidence incidence) {
+		ListenableFuture<SendResult<String, Incidence>> future = kafkaTemplate.send(topic, incidence);
+		future.addCallback(new ListenableFutureCallback<SendResult<String, Incidence>>() {
 			@Override
-			public void onSuccess(SendResult<String, String> result) {
-				logger.info("Success on sending message \"" + data + "\" to topic " + topic);
+			public void onSuccess(SendResult<String, Incidence> result) {
+				logger.info("Success on sending message \"" + incidence + "\" to topic " + topic);
 			}
 
 			@Override
 			public void onFailure(Throwable ex) {
-				logger.error("Error on sending message \"" + data + "\", stacktrace " + ex.getMessage());
+				logger.error("Error on sending message \"" + incidence + "\", stacktrace " + ex.getMessage());
 			}
 		});
 	}

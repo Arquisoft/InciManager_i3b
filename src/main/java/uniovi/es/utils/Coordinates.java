@@ -1,4 +1,4 @@
-package uniovi.es.entities;
+package uniovi.es.utils;
 
 import java.text.DecimalFormat;
 import java.util.Random;
@@ -10,8 +10,8 @@ public class Coordinates {
 	private Random r = new Random();
 	
 	public Coordinates() {
-		this.longitude = r.nextDouble()*100;
-		this.latitude = r.nextDouble()*100;
+		this.longitude = r.nextDouble()*360 - 180;
+		this.latitude = r.nextDouble()*360 - 180;
 	}
 
 	public double getLongitud() {
@@ -24,8 +24,8 @@ public class Coordinates {
 
 	public String getCoordinates()
 	{
-		DecimalFormat df = new DecimalFormat("#.##");  
-		return "Lat : " + df.format(getLatitud()) + " | Long : " + df.format(getLongitud());
+		DecimalFormat df = new DecimalFormat("#.####");  
+		return df.format(getLatitud()) + " || " + df.format(getLongitud());
 	}
 
 }
